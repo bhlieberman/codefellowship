@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Signup</title>
+    <style>
+        h1, h3 {
+            font-family: Algerian;
+            display: flex;
+            justify-content: center;
+        }
+        body {
+            background-color: coral;
+        }
+        form {
+            box-shadow: darkseagreen;
+            padding: 5px;
+        }
+        #signup {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body>
 <h1>Sign Up!</h1>
+<div id="signup">
 <form action="/signup" method="post">
     <label>Username
     <input type="text" name="username">
@@ -23,5 +42,6 @@
 
     <input type="submit" value="Sign Up">
 </form>
+</div>
 </body>
 </html>

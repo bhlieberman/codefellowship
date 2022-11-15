@@ -32,17 +32,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
             http
                     .cors().disable()
                     .csrf().disable()
+                    // ------ Request section
                     .authorizeRequests()
-                    .antMatchers("/").permitAll()
-                    .antMatchers("/signup").permitAll()
+                    .antMatchers("/", "/login", "/signup").permitAll()
                     .anyRequest().authenticated()
                     .and()
+                    // ----- Login section
                     .formLogin()
                     .loginPage("/login")
                     .defaultSuccessUrl("/")
+                    // ---- Logout section
                     .and()
                     .logout()
-                .logoutSuccessUrl("/login");
+                    .logoutSuccessUrl("/login");
         }
     }
 

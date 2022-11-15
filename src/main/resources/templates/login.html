@@ -3,19 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <style>
+        h1, h3 {
+        font-family: Algerian;
+    }
+    body {
+        background-color: coral;
+        display: flex;
+        justify-content: center;
+    }
+    form {
+        box-shadow: darkseagreen;
+        padding: 5px;
+    }
+    </style>
 </head>
 <body>
 <h1>Login</h1>
 <h2>(or sign up <a href="/signup">here</a>)</h2>
-<form action="/login" method="POST">
-    <label>Username</label>
-    <label>Username
-        <input type="text" name="username">
-    </label>
+<form action="/login" method="post">
 
-    <label>Password
-    <input type="password" name="password">
-    </label>
+    <label for="username">Username</label>
+        <input type="text" name="username" id="username">
+
+
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password">
+
 
     <input type="submit" value="Log in">
 </form>
