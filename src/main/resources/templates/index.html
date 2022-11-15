@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <style>
+        h1, h3 {
+            font-family: Algerian;
+            display: flex;
+            justify-content: center;
+        }
+        body {
+            background-color: coral;
+        }
+    </style>
+</head>
+<body>
+<h3 th:if="${username}" th:text="${'Current User: ' + username + ' with first name: ' + fName}"></h3>
+<h1>A truly secure application.</h1>
+
+<a th:if="!${username}" href="/login">Log In</a>
+<br>
+<a th:if="!${username}" href="/signup">Sign Up</a>
+</body>
+</html>
