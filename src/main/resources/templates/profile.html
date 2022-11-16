@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+</head>
+<body>
+<ol th:each="post: ${posts}">
+    <li th:text="post.body"/>
+    <li th:text="post.timestamp"/>
+</ol>
+<div>
+    <form>
+        <label for="post"></label>
+        <input type="text" name="post-name" id="post"/>
+        <label for="date"></label>
+        <input type="text" name="post-date" id="date"/>
+        <input type="submit" value="Create post">
+    </form>
+</div>
+</body>
+</html>

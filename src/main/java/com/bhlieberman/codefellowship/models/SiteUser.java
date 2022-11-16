@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class SiteUser implements UserDetails {
@@ -45,6 +46,9 @@ public class SiteUser implements UserDetails {
     }
 
     private String lastName;
+
+    @OneToMany(mappedBy = "user")
+    List<Post> posts;
 
     protected SiteUser() {}
 
