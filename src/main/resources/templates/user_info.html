@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="/fragments/error-fragment :: user-error"></div>
+<h3 th:if="${authenticatedUsername}" th:text="${'Current user: ' + authenticatedUsername}"></h3>
+
+<form th:action="${'/users/' + viewUserID}" th:method="PUT">
+  <label>Username</label>
+  <input th:value="${viewUsername}" type="text" name="username" th:disabled="${!authenticatedUsername.equals(viewUsername)}">
+  <input th:if="${authenticatedUsername.equals(viewUsername)}" type="submit" value="Edit User Info">
+</form>
+</body>
+</html>
