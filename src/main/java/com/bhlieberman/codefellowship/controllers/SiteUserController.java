@@ -35,6 +35,8 @@ public class SiteUserController {
         m.addAttribute("authenticatedUsername", authenticatedUser.getUsername());
 
         SiteUser viewUser = siteUserRepo.findById(id).orElse(new SiteUser());
+        m.addAttribute("usersIFollow", viewUser.getUsersIFollow());
+        m.addAttribute("usersWhoFollowMe", viewUser.getUsersWhoFollowMe());
         m.addAttribute("viewUsername", viewUser.getUsername());
         m.addAttribute("viewUserID", viewUser.getId());
         return "user_info";
@@ -64,17 +66,29 @@ public class SiteUserController {
     }
 
     @PostMapping("/posts")
-    String createPost(@RequestParam String body, @RequestParam String timestamp) {
-        Post p = new Post(body, LocalDateTime.parse(timestamp));
-        var user = siteUserRepo.getReferenceById(1L);
-        user.getPosts().add(p);
+    RedirectView createPost(@RequestParam String body, @RequestParam String timestamp, Principal p) {
+        Post post = new Post(body, LocalDateTime.now());
+        var user = siteUserRepo.findByUsername(p.getName());
+        user.getPosts().add(post);
         siteUserRepo.save(user);
-        postRepo.save(p);
-        return "profile";
+        postRepo.save(post);
+        return new RedirectView("users/user/" + user.getId() + "/posts");
     }
 
     @PostMapping("logout")
     public String logOut() {
         return "index";
+    }
+
+    @PutMapping("/follow-user/{id}")
+    public RedirectView followUser(Principal p, @PathVariable Long id){
+        SiteUser userToFollow = siteUserRepo.findById(id).orElseThrow(() -> new RuntimeException("Error retrieving user from the database with an ID of: " + id));
+        SiteUser browsingUser = siteUserRepo.findByUsername(p.getName());
+        if(browsingUser.getUsername().equals(userToFollow.getUsername())){
+            throw new IllegalArgumentException("Can't follow your own account");
+        }
+        browsingUser.getUsersIFollow().add(userToFollow);
+        siteUserRepo.save(browsingUser);
+        return new RedirectView("/users/user/" + id);
     }
 }

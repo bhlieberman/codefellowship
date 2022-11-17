@@ -31,6 +31,25 @@ public class SiteUser implements UserDetails {
     @OneToMany(mappedBy = "user")
     private Set<Post> posts = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "followers_to_followees",
+            joinColumns = {@JoinColumn(name = "userWhoIsFollowing")},
+            inverseJoinColumns = {@JoinColumn(name = "FollowedUser")}
+    )
+    Set<SiteUser> usersIFollow = new HashSet<>();
+
+    @ManyToMany(mappedBy = "usersIFollow")
+    Set<SiteUser> usersWhoFollowMe = new HashSet<>();
+
+    public Set<SiteUser> getUsersIFollow() {
+        return usersIFollow;
+    }
+
+    public Set<SiteUser> getUsersWhoFollowMe() {
+        return usersWhoFollowMe;
+    }
+
     public SiteUser() {}
 
     public SiteUser(String username, String password, String firstName, String lastName) {
