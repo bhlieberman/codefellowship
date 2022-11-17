@@ -5,7 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class SiteUser implements UserDetails {
@@ -24,7 +26,23 @@ public class SiteUser implements UserDetails {
     private String username;
     private String password;
     private String firstName;
+    private String lastName;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Post> posts = new HashSet<>();
+
+    public SiteUser() {}
+
+    public SiteUser(String username, String password, String firstName, String lastName) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public Object getFirstName() {
+        return this.firstName;
+    }
     public void setUsername(String username) {
         this.username = username;
     }
@@ -45,24 +63,13 @@ public class SiteUser implements UserDetails {
         this.lastName = lastName;
     }
 
-    private String lastName;
-
-    @OneToMany(mappedBy = "user")
-    List<Post> posts;
-
-    protected SiteUser() {}
-
-    public SiteUser(String username, String password, String firstName, String lastName) {
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    private void createPost(Post p) {
+        posts.add(p);
     }
 
-    public Object getFirstName() {
-        return this.firstName;
+    public Set<Post> getPosts() {
+        return posts;
     }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

@@ -6,15 +6,15 @@
 </head>
 <body>
 <ol th:each="post: ${posts}">
-    <li th:text="post.body"/>
-    <li th:text="post.timestamp"/>
+    <li th:text="${post.body}"></li>
+    <li th:text="${post.timestamp}"/>
 </ol>
 <div>
-    <form>
+    <form action="/posts" method="post">
         <label for="post"></label>
-        <input type="text" name="post-name" id="post"/>
+        <input type="text" name="body" id="post"/>
         <label for="date"></label>
-        <input type="text" name="post-date" id="date"/>
+        <input type="text" name="timestamp" id="date"/>
         <input type="submit" value="Create post">
     </form>
 </div>

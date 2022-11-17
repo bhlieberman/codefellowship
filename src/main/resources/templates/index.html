@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-<h3 th:if="${username}" th:text="${'Current User: ' + username + ' with first name: ' + fName}"></h3>
+<h3 th:if="${username != null && fName != null}" th:text="${'Current User: ' + username + ' with first name: ' + fName}"></h3>
 <h1>A truly secure application.</h1>
 
 <a th:if="!${username}" href="/login">Log In</a>
