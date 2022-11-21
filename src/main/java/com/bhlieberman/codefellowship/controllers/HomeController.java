@@ -24,12 +24,12 @@ public class HomeController {
 
     @GetMapping
     public String getHomePage(Model m, Principal p) {
-        String username = p != null ? p.getName() : "";
+        String username = p != null ? p.getName() : null;
         Optional<SiteUser> user = Optional.ofNullable(siteUserRepository.findByUsername(username));
         m.addAttribute("username", username);
         m.addAttribute("fName",
                 user.map(SiteUser::getFirstName)
-                        .orElse("not a user")
+                        .orElse(null)
         );
         return "index";
     }

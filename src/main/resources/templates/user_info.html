@@ -28,5 +28,6 @@
 <ul th:each="userThatFollows : ${usersWhoFollowMe}">
     <li th:text="${userThatFollows.username}"></li>
 </ul>
+<a href="/logout">Logout</a>
 </body>
 </html>
